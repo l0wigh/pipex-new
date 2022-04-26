@@ -6,7 +6,7 @@
 #    By: thomathi <thomathi@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 11:17:33 by thomathi          #+#    #+#              #
-#    Updated: 2022/04/22 23:07:48 by thomathi         ###   ########.fr        #
+#    Updated: 2022/04/26 14:59:42 by thomathi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,12 @@ RED			= \033[0;31m
 RST			= \033[0m
 END			= \e[0m
 
-SRCS		= srcs/pipex.c
+SRCS		= srcs/pipex.c \
+			  srcs/pipex_utils.c \
+			  srcs/ft_split.c \
+			  srcs/ft_strdup.c \
+			  srcs/ft_strncmp.c \
+			  srcs/ft_strjoin.c
 NAME		= pipex
 OBJS_DIR	= objs/
 PROJECT_H	= srcs/pipex.h
