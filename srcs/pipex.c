@@ -6,13 +6,16 @@
 /*   By: thomathi <thomathi@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:08:01 by thomathi          #+#    #+#             */
-/*   Updated: 2022/04/26 00:51:43 by thomathi         ###   ########.fr       */
+/*   Updated: 2022/06/04 01:13:29 by thomathi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// If you read this, keep in mind that, I hate pipex !
+// Si tu lis ça, sache que je déteste pipex
+// Même si en vrai c'était sympa à coder
+// Mais Fuck Pipex quand même
 
 #include "pipex.h"
+#include <unistd.h>
 
 char	*prepare_exec(char *environnement[], char arguments[])
 {
@@ -73,17 +76,20 @@ void	second_pid(int *fd, char *file, char *commande, char *chemin)
 	return ;
 }
 
-void	split_norminette_chiant(char *envp[], char *argv[], pid_t pid1, int *fd)
+void	split_pour_norminette(char *envp[], char *argv[], pid_t pid1, int *fd)
 {
 	pid_t	pid2;
 	char	*chemin;
+	char	**arguments;
 
+	
 	pid2 = fork();
 	if (pid2 < 0)
 		return ;
 	if (pid2 == 0)
 	{
-		chemin = prepare_exec(envp, argv[3]);
+		arguments = ft_split(argv[3], ' ');
+		chemin = prepare_exec(envp, arguments[0]);
 		if (!chemin)
 			return ;
 		second_pid(fd, argv[4], argv[3], chemin);
@@ -100,6 +106,7 @@ int	main(int argc, char *argv[], char *envp[])
 	int		fd_isopen;
 	pid_t	pid1;
 	char	*chemin;
+	char	**arguments;
 
 	if (argc < 5)
 		return (1);
@@ -111,14 +118,13 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	if (pid1 == 0)
 	{
-		chemin = prepare_exec(envp, argv[2]);
+		arguments = ft_split(argv[2], ' ');
+		chemin = prepare_exec(envp, arguments[0]);
 		if (!chemin)
 			return (1);
 		first_pid(fd, argv[1], argv[2], chemin);
 	}
 	else
-	{
-		split_norminette_chiant(envp, argv, pid1, fd);
-	}
+		split_pour_norminette(envp, argv, pid1, fd);
 	return (0);
 }
