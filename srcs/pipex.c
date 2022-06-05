@@ -6,7 +6,7 @@
 /*   By: thomathi <thomathi@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:08:01 by thomathi          #+#    #+#             */
-/*   Updated: 2022/06/04 01:13:29 by thomathi         ###   ########.fr       */
+/*   Updated: 2022/06/05 17:52:41 by thomathi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	split_pour_norminette(char *envp[], char *argv[], pid_t pid1, int *fd)
 	char	*chemin;
 	char	**arguments;
 
-	
 	pid2 = fork();
 	if (pid2 < 0)
 		return ;
