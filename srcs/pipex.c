@@ -6,13 +6,11 @@
 /*   By: thomathi <thomathi@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:08:01 by thomathi          #+#    #+#             */
-/*   Updated: 2022/06/05 17:52:41 by thomathi         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:44:50 by thomathi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // Si tu lis ça, sache que je déteste pipex
-// Même si en vrai c'était sympa à coder
-// Mais Fuck Pipex quand même
 
 #include "pipex.h"
 #include <unistd.h>
@@ -62,7 +60,7 @@ void	second_pid(int *fd, char *file, char *commande, char *chemin)
 	int		file_open;
 	char	**arguments;
 
-	file_open = open(file, O_CREAT | O_WRONLY, 0644);
+	file_open = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	dup2(fd[0], STDIN_FILENO);
 	dup2(file_open, STDOUT_FILENO);
 	close(fd[0]);
@@ -89,6 +87,7 @@ void	split_pour_norminette(char *envp[], char *argv[], pid_t pid1, int *fd)
 	{
 		arguments = ft_split(argv[3], ' ');
 		chemin = prepare_exec(envp, arguments[0]);
+		free(arguments);
 		if (!chemin)
 			return ;
 		second_pid(fd, argv[4], argv[3], chemin);
@@ -102,15 +101,14 @@ void	split_pour_norminette(char *envp[], char *argv[], pid_t pid1, int *fd)
 int	main(int argc, char *argv[], char *envp[])
 {
 	int		fd[2];
-	int		fd_isopen;
 	pid_t	pid1;
 	char	*chemin;
 	char	**arguments;
 
 	if (argc < 5)
 		return (1);
-	fd_isopen = pipe(fd);
-	if (fd_isopen == -1)
+	pid1 = pipe(fd);
+	if (pid1 == -1)
 		return (1);
 	pid1 = fork();
 	if (pid1 < 0)
@@ -119,6 +117,7 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		arguments = ft_split(argv[2], ' ');
 		chemin = prepare_exec(envp, arguments[0]);
+		free(arguments);
 		if (!chemin)
 			return (1);
 		first_pid(fd, argv[1], argv[2], chemin);
