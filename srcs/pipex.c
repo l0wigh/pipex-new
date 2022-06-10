@@ -6,14 +6,13 @@
 /*   By: thomathi <thomathi@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:08:01 by thomathi          #+#    #+#             */
-/*   Updated: 2022/06/09 10:44:50 by thomathi         ###   ########.fr       */
+/*   Updated: 2022/06/10 17:33:56 by thomathi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // Si tu lis ça, sache que je déteste pipex
 
 #include "pipex.h"
-#include <unistd.h>
 
 char	*prepare_exec(char *environnement[], char arguments[])
 {
