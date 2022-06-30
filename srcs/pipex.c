@@ -6,7 +6,7 @@
 /*   By: thomathi <thomathi@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:08:01 by thomathi          #+#    #+#             */
-/*   Updated: 2022/06/16 17:33:46 by thomathi         ###   ########.fr       */
+/*   Updated: 2022/06/30 16:33:27 by thomathi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	first_pid(int *fd, char *file, char *commande, char *chemin)
 
 	file_open = open(file, O_RDONLY);
 	if (file_open == -1)
-		return;
+		return ;
 	dup2(file_open, STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
@@ -63,7 +63,7 @@ void	second_pid(int *fd, char *file, char *commande, char *chemin)
 
 	file_open = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (file_open == -1)
-		return;
+		return ;
 	dup2(fd[0], STDIN_FILENO);
 	dup2(file_open, STDOUT_FILENO);
 	close(fd[0]);
